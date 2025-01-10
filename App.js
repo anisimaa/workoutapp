@@ -16,8 +16,12 @@ export default function App() {
   const handleButtonPress3 = () => {
     Alert.alert('Card Pressed!', 'You pressed the card!');
   };
+
+  const handleButtonPress4 = () => {
+    Alert.alert('Bottombutton pressed!', 'You pressed the Bottombutton!');
+  };
   return (
-    <ScrollView style={styles.scrollContainer} bounces={false}>
+    <ScrollView style={styles.scrollContainer}>
       <ImageBackground
         source={require('./assets/workoutbackground5.jpg')}
         style={styles.imageBackground}
@@ -32,15 +36,15 @@ export default function App() {
       {/*Top button 1 */}
       <TouchableOpacity style={styles.button} onPress={handleButtonPress1}>
         {/* FontAwesome Icon */}
-       <FontAwesome marginRight= '10' marginTop= '4' name="plus-circle" size={15} color="#FFFFFF" />
-            <Text style={styles.buttonText}>New sport</Text>
+       <FontAwesome marginRight= '10' marginTop= '4' name="list" size={15} color="#FFFFFF" />
+            <Text style={styles.buttonText}>All exercises</Text>
           </TouchableOpacity>
 
         {/*Top button 2 */}
       <TouchableOpacity style={styles.button} onPress={handleButtonPress1}>
             {/* FontAwesome Icon */}
-       <FontAwesome marginRight= '10' marginTop= '4' name="list" size={15} color="#FFFFFF" />  
-            <Text style={styles.buttonText}>All exercises</Text>
+       <FontAwesome marginRight= '10' marginTop= '4' name="calculator" size={15} color="#FFFFFF" />  
+            <Text style={styles.buttonText}>Statistics</Text>
           </TouchableOpacity>
           </View>
 
@@ -94,6 +98,13 @@ export default function App() {
           </TouchableOpacity>
         </TouchableOpacity>
 
+      {/* Bottombutton */}
+        <TouchableOpacity style={styles.button} onPress={handleButtonPress4}>
+            {/* FontAwesome Icon */}
+       <FontAwesome marginRight= '10' marginTop= '4' name="plus-circle" size={15} color="#FFFFFF" />  
+            <Text style={styles.buttonText}>New Sport</Text>
+          </TouchableOpacity>
+          
       </ImageBackground>
     </ScrollView>
   );
