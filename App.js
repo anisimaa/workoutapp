@@ -17,9 +17,9 @@ export default function App() {
     Alert.alert('Card Pressed!', 'You pressed the card!');
   };
   return (
-    <ScrollView style={styles.scrollContainer}>
+    <ScrollView style={styles.scrollContainer} bounces={false}>
       <ImageBackground
-        source={require('./assets/workoutback2.jpg')}
+        source={require('./assets/workoutbackground5.jpg')}
         style={styles.imageBackground}
         resizeMode="repeat"
       >
@@ -77,6 +77,16 @@ export default function App() {
         {/* Card Container4 */}
         <TouchableOpacity style={styles.card} onPress={handleButtonPress3}>
           <Text style={styles.cardTitle}>Walking</Text>
+          <Text style={styles.cardText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+        {/* Cardbutton */}
+      <TouchableOpacity style={styles.cardButton} onPress={handleButtonPress2}>
+            <Text style={styles.buttonText}>Add exercise</Text>
+          </TouchableOpacity>
+        </TouchableOpacity>
+
+        {/* Card Container5 */}
+        <TouchableOpacity style={styles.card} onPress={handleButtonPress3}>
+          <Text style={styles.cardTitle}>Running</Text>
           <Text style={styles.cardText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
         {/* Cardbutton */}
       <TouchableOpacity style={styles.cardButton} onPress={handleButtonPress2}>
