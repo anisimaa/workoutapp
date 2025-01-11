@@ -1,15 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+const HomeStyles = StyleSheet.create({
   scrollContainer: {
     flexgrow: 1, 
     backgroundColor: '#FFFFFF', 
   },
 
-  container: {
-    flex: 1,
-    padding: 20,
-  },
 
   imageBackground: {
     flex: 1,
@@ -49,7 +45,8 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     color: '#333', 
-    marginTop: 90,
+    top: 90,
+    marginBottom: 100,
   },
 
   buttonContainer: {
@@ -86,4 +83,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
+export default HomeStyles;
