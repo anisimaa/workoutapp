@@ -1,9 +1,19 @@
-import React from 'react';
-import { View, TouchableOpacity, ScrollView, Alert, ImageBackground, Text, } from 'react-native';
+import React, {useState} from 'react';
+import { View, TouchableOpacity, ScrollView, Alert, ImageBackground, Text, Modal, TextInput } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import HomeStyles from '../styles/HomeScreenStyle';
 
 const HomeScreen = ({ navigation }) => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [inputText, setInputText] = useState('');
+  const [tasks, setTasks] = useState([]);
+
+  const addSport = () => {
+    setTasks([...tasks, inputText]);
+    setInputText('');
+    setModalVisible(false);
+  };
   
   const handleButtonPress2 = () => {
     Alert.alert('Cardbutton Pressed!', 'You pressed the card button!');
@@ -13,9 +23,6 @@ const HomeScreen = ({ navigation }) => {
     Alert.alert('Card Pressed!', 'You pressed the card!');
   };
 
-  const handleButtonPress4 = () => {
-    Alert.alert('Bottombutton pressed!', 'You pressed the Bottombutton!');
-  };
   return (
     <ScrollView style={HomeStyles.scrollContainer}>
       <ImageBackground
@@ -94,15 +101,47 @@ const HomeScreen = ({ navigation }) => {
           </TouchableOpacity>
         </TouchableOpacity>
 
-      {/* Bottombutton */}
-        <TouchableOpacity style={HomeStyles.button} onPress={handleButtonPress4}>
-            {/* FontAwesome Icon */}
-       <FontAwesome marginRight= '10' marginTop= '4' name="plus-circle" size={15} color="#FFFFFF" />  
-            <Text style={HomeStyles.buttonText}>New Sport</Text>
-          </TouchableOpacity>
-          
+    
+          <View style={HomeStyles.button}>
+              {/* Bottombutton */}
+              <TouchableOpacity style={[HomeStyles.button]} onPress={() => setModalVisible(true)}>
+                <FontAwesome marginRight="10" marginTop="4" name="plus-circle" size={15} color="#FFFFFF" />
+                <Text style={HomeStyles.buttonText}>New Sport</Text>
+              </TouchableOpacity>
+          </View>
+        
       </ImageBackground>
+
+      <Modal style={HomeStyles.modalContent}
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}>
+      
+          <View style={HomeStyles.modalContent}>
+          <View style={HomeStyles.closeIcon}> 
+          <FontAwesome marginRight= '10' marginTop= '4' name="close" size={28} color="#000000" onPress={() => setModalVisible(false)}/>
+          </View>
+          <Text style={HomeStyles.cardTitle}>New sport</Text>
+          
+          
+          <TextInput style={HomeStyles.input}
+              
+              onChangeText={setInputText}
+              value={inputText}
+              placeholder="Name"
+              placeholderTextColor="#999"
+            />
+
+          <TouchableOpacity onPress={addSport} style={HomeStyles.bottomButton}>
+          <Text style={HomeStyles.buttonText}>Add</Text>
+        </TouchableOpacity>
+          </View>
+          
+        </Modal>
     </ScrollView>
+
+    
   );
 }
 
