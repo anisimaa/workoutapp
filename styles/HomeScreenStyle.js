@@ -3,31 +3,37 @@ import { StyleSheet } from 'react-native';
 const HomeStyles = StyleSheet.create({
   scrollContainer: {
     flexgrow: 1, 
-    backgroundColor: '#FFFFFF', 
+    display: "flex",
+    flexDirection: "vertical",
+    justifyContent: "space-around",
+    alignItems: "center",
+    height: "100%",
   },
 
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
 
   imageBackground: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center', 
     alignItems: 'center', 
     justifyContent: 'flex-start', 
-    alignItems: 'center', 
-    backgroundRepeat: 'repeat', 
     paddingBottom: 50,
   },
+
   card: {
     backgroundColor: 'rgba(255, 255, 255, 0.87)', 
     padding: 20,
-    borderRadius: 10,
-    width: '85%',              
+    borderRadius: 10,  
+    minWidth: '85%',   
     alignItems: 'center',      
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
-    marginBottom: 20,
+    marginBottom: 25,
   },
   cardTitle: {
     fontSize: 24,
@@ -64,9 +70,8 @@ const HomeStyles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#000000', 
     paddingVertical: 10,
-    paddingHorizontal: 17,
+    paddingHorizontal: 13,
     borderRadius: 5,
-
   },
 
   cardButton: {
@@ -86,17 +91,16 @@ const HomeStyles = StyleSheet.create({
 
 modalContent: {
     position: 'absolute',
-    bottom: '50%',
+    bottom: '35%',
     left: 20,
     right: 20,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center', 
     zIndex: 999,
     backgroundColor: 'rgba(255, 255, 255,  1)', 
     padding: 25,
     borderRadius: 10,
-    width: '85%',              
-    alignItems: 'center',      
+    width: '90%',                   
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.3,
@@ -110,6 +114,7 @@ bottomButton: {
   paddingVertical: 10,
   paddingHorizontal: 17,
   borderRadius: 5,
+  marginTop: 17,
 },
 
 input: {
@@ -119,14 +124,25 @@ input: {
   borderWidth: 1,
   borderRadius: 5,
   paddingLeft: 10,
-  marginBottom: 25,
-  marginTop: 15,
+  marginBottom: 1,
+  marginTop: 10,
   fontSize: 16,
 },
 
 closeIcon: {
-
+  position: 'absolute',
+  top: 25,  
+  right: 33, 
+  zIndex: 10, 
 },
+
+changetxt: {
+    color: 'rgba(95, 95, 95, 0.38)', 
+    fontSize: 12,
+    textAlign: 'center',
+},
+
+
 
 });
 
