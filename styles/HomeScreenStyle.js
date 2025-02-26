@@ -2,9 +2,9 @@ import { StyleSheet } from 'react-native';
 
 const HomeStyles = StyleSheet.create({
   scrollContainer: {
-    flexgrow: 1, 
+    flexGrow: 1, 
     display: "flex",
-    flexDirection: "vertical",
+    flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
     height: "100%",
@@ -45,6 +45,7 @@ const HomeStyles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     textAlign: 'center',
+    marginTop: 10,
   },
 
   headerText: {
@@ -90,13 +91,12 @@ const HomeStyles = StyleSheet.create({
   },
 
 modalContent: {
-    position: 'absolute',
-    bottom: '35%',
+    position: 'relative',
+    top: 95,
     left: 20,
     right: 20,
     justifyContent: 'center',
     alignItems: 'center', 
-    zIndex: 999,
     backgroundColor: 'rgba(255, 255, 255,  1)', 
     padding: 25,
     borderRadius: 10,
@@ -105,7 +105,7 @@ modalContent: {
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
-    marginBottom: 20,
+    zIndex: 500,
 },
 
 bottomButton: {
@@ -118,15 +118,16 @@ bottomButton: {
 },
 
 input: {
-  width:'80%',
-  height: 40,
+  width:'100%',
+  height: 50,
   borderColor: '#ccc',
   borderWidth: 1,
   borderRadius: 5,
   paddingLeft: 10,
-  marginBottom: 1,
-  marginTop: 10,
+  marginBottom: 5,
+  marginTop: 5,
   fontSize: 16,
+  zIndex:1000,
 },
 
 closeIcon: {
@@ -140,6 +141,7 @@ changetxt: {
     color: 'rgba(95, 95, 95, 0.38)', 
     fontSize: 12,
     textAlign: 'center',
+    padding: 5,
 },
 
 

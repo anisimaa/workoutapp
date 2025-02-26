@@ -3,8 +3,7 @@ import { View, TouchableOpacity, ScrollView, ImageBackground, Text, Modal, TextI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import HomeStyles from '../styles/HomeScreenStyle';
-import { Picker } from 'react-native-wheel-pick';
-
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const HomeScreen = ({ navigation }) => {
 
@@ -16,11 +15,19 @@ const HomeScreen = ({ navigation }) => {
   const [showDatePicker, setShowDatePicker] = useState(true);
 
 // for the card add
-  const [sportType, setSportType] = useState('');
+  const [cards, setCards] = useState([]);
+  const [sportType, setSportType] = useState('Walking');
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
-  const [cards, setCards] = useState([]);
 
+  // for the menu, dropdown
+  const [isOpen, setIsOpen] = useState(false);
+
+  const items = [
+  {label:'Walking', value:'Walking' },
+  {label:'Running', value:'Running' },
+  {label:'Swimming', value:'Swimming' },
+]
  //handle dateinput
  const updateDate = (selectedDate, id) => {
   setShowDatePicker(null); 
@@ -35,7 +42,6 @@ const HomeScreen = ({ navigation }) => {
 
   //handling the exerciseadd popup
   const handleAddCard = () => {
-
     if (sportType && distance && duration) {
       const newCard = {
         id: Math.random().toString(),
@@ -51,19 +57,35 @@ const HomeScreen = ({ navigation }) => {
       setDistance('');
       setDuration('');
       setSelectedDate(new Date());
+      setShowDatePicker(true);
       setModalVisible(false);
     }
-  }
-  
+  };
+
+    //calculating for the total kilometers and time
+    const totalKm = () => {
+      let totals = { walking: 0, running: 0, swimming: 0 }
+      
+    cards.forEach((card) => {
+      const distance = parseFloat(card.distance);
+      if (card.sportType === 'Walking') totals.walking += distance;
+      if (card.sportType === 'Running') totals.running += distance;
+      if (card.sportType === 'Swimming') totals.swimming += distance;
+    });
+  // Sum all distances together
+    totals.all = totals.walking + totals.running + totals.swimming;
+    return totals;
+  };
+
 
   return (
     <ScrollView contentContainerStyle={HomeStyles.scrollContainer}>
+      <View>
       <ImageBackground
         source={require('../assets/workoutbackground5.jpg')}
         style={HomeStyles.imageBackground}
-        resizeMode="repeat"
->
-
+        resizeMode="repeat">
+    
       {/* Header Text */}
       <Text style={HomeStyles.headerText}>Workout diary</Text>
        
@@ -76,29 +98,26 @@ const HomeScreen = ({ navigation }) => {
               </TouchableOpacity>
 
           {/*Top button 1 */}
-      <TouchableOpacity style={HomeStyles.button} onPress={() => navigation.navigate('Statistics')}>
+      <TouchableOpacity style={HomeStyles.button} onPress={ () => {const totals = totalKm(); navigation.navigate('Statistics', {totals})}}>
        <FontAwesome marginRight= '10' marginTop= '4' name="list" size={15} color="#FFFFFF" />
             <Text style={HomeStyles.buttonText}>Statistics</Text>
           </TouchableOpacity>
           </View>
 
-          {/* Card Container */}
-
-        <FlatList
-        data={cards}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={HomeStyles.card}>
-            <Text style={HomeStyles.cardTitle}>{item.sportType}</Text>
-            <Text style={HomeStyles.cardText}>Distance: {item.distance} km</Text>
-            <Text style={HomeStyles.cardText}>Duration: {item.duration} min</Text>
-            <Text style={HomeStyles.changetxt}>{item.date.toDateString()}</Text>
-          </View>
-        )}
-        />
-        
+          {/* Card  */}
+      <FlatList
+      data={cards}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View style={HomeStyles.card}>
+          <Text style={HomeStyles.cardTitle}>{item.sportType}</Text>
+          <Text style={HomeStyles.cardText}>Distance: {item.distance} km</Text>
+          <Text style={HomeStyles.cardText}>Duration: {item.duration} min</Text>
+          <Text style={HomeStyles.changetxt}>{item.date.toDateString()}</Text>
+        </View>
+      )}
+      />
       
-        
       </ImageBackground>
 
       {/* adding exercise */}
@@ -121,59 +140,62 @@ const HomeScreen = ({ navigation }) => {
           </View>
           <Text style={HomeStyles.cardTitle}>Add exercise</Text>
 
-          
           {/* date picker */}
           {showDatePicker && (
             <DateTimePicker 
               value={selectedDate}
               mode="date"
               display="default"
-              style={{ backgroundColor: 'grey', borderRadius:5, paddingRight: 3 }}
+              style={{ backgroundColor: 'grey', borderRadius:5, paddingRight: 3, marginBottom: 20, marginTop: 10 }}
               onChange={(event, date) => {
                 if (date) {
                   setSelectedDate(date); 
                   selectedDate.toDateString()
                 }
-                setShowDatePicker(false); // Hide picker after selection
+                setShowDatePicker(false); // hide picker 
                 
               }}
             />
           )}
 
-          {selectedDate && !showDatePicker && (
-            <View>
-        <Text style={HomeStyles.cardText}>{selectedDate.toDateString()}</Text>
+        {selectedDate && !showDatePicker && (
+          <View>
+            <Text style={HomeStyles.cardText}>{selectedDate.toDateString()}</Text>
 
-        {/* Change Date button */}
+          {/* Change Date button */}
           <TouchableOpacity onPress={() => setShowDatePicker(true)}>
             <Text style={HomeStyles.changetxt}>Change Date</Text>
          </TouchableOpacity>
         </View>
           )}
-        
-        <Picker
-        style={{ backgroundColor: 'white', width: '90%' }}
-        selectedValue='Walking'
-        onChangeText={setSportType}
-        value={sportType}
-        pickerData={['Walking', 'Running', 'Swimming']}
-        onValueChange={value => { console.log(value) }}
-        />
-        
+
+          <DropDownPicker 
+              items={items}
+              open={isOpen}
+              style={HomeStyles.input}
+              setValue={(val) => setSportType(val)}
+              placeholder="Select sport"
+              setOpen={() => setIsOpen(!isOpen)}
+              value={sportType}
+              onChangeText={setSportType}>
+            </DropDownPicker>
+
+        <Text style={HomeStyles.cardText}>Distance, km</Text>
         <TextInput style={HomeStyles.input}
               
               onChangeText={setDistance}
               value={distance}
-              placeholder="Distance, min"
+              placeholder="0,0"
               placeholderTextColor="#999"
               keyboardType="numeric"
             />
 
+        <Text style={HomeStyles.cardText}>Duration, min</Text>
         <TextInput style={HomeStyles.input}
               
               onChangeText={setDuration}
               value={duration}
-              placeholder="Duration, min"
+              placeholder="0"
               placeholderTextColor="#999"
               keyboardType="numeric"
             />
@@ -184,9 +206,8 @@ const HomeScreen = ({ navigation }) => {
           </View>
           
         </Modal>
+      </View>
     </ScrollView>
-
-    
   );
 };
 

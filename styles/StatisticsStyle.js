@@ -31,7 +31,7 @@ cardContainer: {
 
   card: {
     backgroundColor: 'rgba(255, 255, 255, 0.87)', 
-    padding: 20,
+    padding: 35,
     borderRadius: 10,
     width: '85%',                   
     shadowColor: '#000',
@@ -45,13 +45,22 @@ cardContainer: {
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#333',
+    textAlign: 'center',
   },
   cardText: {
     fontSize: 17,
     color: '#333',
     textAlign: 'center',
+    padding: 5,
   },
 
+  changetxt: {
+    color: 'rgba(95, 95, 95, 0.38)', 
+    fontSize: 16,
+    textAlign: 'center',
+    padding: 5,
+    marginTop: 15,
+},
 
 });
 
